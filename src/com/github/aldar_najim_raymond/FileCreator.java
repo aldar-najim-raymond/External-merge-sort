@@ -5,7 +5,6 @@ import java.io.PrintWriter;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 /**
  * FileCreator is used to create arbitrary large text files with random
@@ -15,7 +14,6 @@ public class FileCreator {
 
 	private String filePath;
 	private List<Integer> data;
-	private Random random;
 
 	/**
 	 * @param file
@@ -24,7 +22,6 @@ public class FileCreator {
 	 */
 	public FileCreator(String file) {
 		this.filePath = file;
-		this.random = new Random();
 	}
 
 	/**
@@ -46,7 +43,7 @@ public class FileCreator {
 
 		data = new ArrayList<Integer>();
 		for (int i = 0; i < lines; i++) {
-			data.add(this.randomNumber());
+			data.add(UtilisationClass.randomNumber());
 		}
 		this.writeListToFile();
 		return this;
@@ -77,7 +74,7 @@ public class FileCreator {
 		 * Iterating the BigIntger line number
 		 */
 		for (BigInteger i = BigInteger.valueOf(1); i.compareTo(lines) <= 0; i = i.add(BigInteger.ONE)) {
-			data.add(this.randomNumber());
+			data.add(UtilisationClass.randomNumber());
 		}
 		this.writeListToFile();
 		return this;
@@ -96,14 +93,5 @@ public class FileCreator {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	}
-
-	/*
-	 * Returns a random number between Integer.MIN and Integer.MAX
-	 */
-	private int randomNumber() {
-		int randomHigh = this.random.nextInt(Integer.MAX_VALUE);
-		int randomLow = this.random.nextInt(Integer.MAX_VALUE);
-		return randomHigh - randomLow;
 	}
 }
