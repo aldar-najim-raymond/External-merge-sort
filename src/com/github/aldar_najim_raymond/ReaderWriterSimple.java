@@ -12,7 +12,7 @@ import java.io.OutputStream;
 import java.math.BigInteger;
 import java.util.ArrayList;
 
-public class ReaderWriter {
+public class ReaderWriterSimple {
 	public void simpleRead(String file) {
 		InputStream is;
 		try {
@@ -25,9 +25,6 @@ public class ReaderWriter {
 			} catch (EOFException e) {
 				ds.close();
 			}
-
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -39,49 +36,41 @@ public class ReaderWriter {
 	 * simpleWrite with n-integer random integers
 	 */
 	public void simpleWrite(String file, int integers) {
-		this.createOutPutStream(file);
-		for (int i = 0; i < integers; i++) {
-			this.simpleWrite(os, UtilisationClass.IntToByteArray(UtilisationClass.randomNumber()));
+		try {
+			os = new FileOutputStream(file);
+			for (int i = 0; i < integers; i++) {
+				os.write(UtilisationClass.IntToByteArray(UtilisationClass.randomNumber()));
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
+		
 	}
 	
 	/*
 	 * simpleWrite with n-BigInteger random integers
 	 */
 	public void simpleWrite(String file, BigInteger integers) {
-		this.createOutPutStream(file);
-		for (BigInteger i = BigInteger.valueOf(1); i.compareTo(integers) <= 0; i = i.add(BigInteger.ONE)){
-			this.simpleWrite(os, UtilisationClass.IntToByteArray(UtilisationClass.randomNumber()));
+		try {
+			os = new FileOutputStream(file);
+			for (BigInteger i = BigInteger.valueOf(1); i.compareTo(integers) <= 0; i = i.add(BigInteger.ONE)){
+				os.write(UtilisationClass.IntToByteArray(UtilisationClass.randomNumber()));
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
+		
 	}
 	
 	/*
 	 * simpleWrite with n-ArrayList integers
 	 */
 	public void simpleWrite(String file, ArrayList<Integer> integers) {
-		this.createOutPutStream(file);
-		for (Integer i : integers){
-			this.simpleWrite(os, UtilisationClass.IntToByteArray(i));
-		}
-	}
-
-	/*
-	 * 
-	 */
-	private void createOutPutStream(String file) {
 		try {
 			os = new FileOutputStream(file);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-	}
-
-	/*
-	 * writing one block at a time
-	 */
-	private void simpleWrite(OutputStream os, byte[] data) {
-		try {
-			os.write(data);
+			for (Integer i : integers){
+				os.write(UtilisationClass.IntToByteArray(i));
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

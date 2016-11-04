@@ -11,8 +11,8 @@ public class TempMainClass {
 		//new FileCreator("a.txt").generateFileBig(new BigInteger("100000"));
 		//System.out.println(Verifier.verifySorted("t1.txt"));
 		
-		ReaderWriter rw = new ReaderWriter();
-		rw.simpleWrite("t4.txt",2);
-		rw.simpleRead("t4.txt");
+		ReaderWriterSimple rw = new ReaderWriterSimple();
+		rw.simpleWrite("t1.txt",5);
+		rw.simpleRead("t1.txt");
 	}
 }
