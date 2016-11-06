@@ -11,10 +11,17 @@ public class TempMainClass {
 		//new FileCreator("a.txt").generateFileBig(new BigInteger("100000"));
 		//System.out.println(Verifier.verifySorted("t1.txt"));
 		
+		
+		ReaderWriterMemoryBuffer rwmb = new ReaderWriterMemoryBuffer(12);
+		rwmb.write("a.txt", new BigInteger("5"));
+		rwmb.read("a.txt");
+		
+		/*
         Class<?>[] parameterTypes = {String.class};
         Object[] parameterValues = {new String("t1.txt")};
 		long time = UtilisationClass.getRuntime("read", ReaderWriterBuffered.class, parameterTypes,parameterValues);
 		System.out.println("time taken: " + time);
+		*/
 
 	}
 }
