@@ -2,6 +2,7 @@ package com.github.aldar_najim_raymond;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.nio.ByteBuffer;
 import java.util.Random;
 
 public class UtilisationClass {
@@ -50,17 +51,16 @@ public class UtilisationClass {
 	}
 
 	/*
-	 * taken from http://stackoverflow.com/a/28360724
+	 * Transforming an integer to a byte array
 	 */
-	public static byte[] IntToByteArray(int data) {
-
-		byte[] result = new byte[4];
-
-		result[0] = (byte) ((data & 0xFF000000) >> 24);
-		result[1] = (byte) ((data & 0x00FF0000) >> 16);
-		result[2] = (byte) ((data & 0x0000FF00) >> 8);
-		result[3] = (byte) ((data & 0x000000FF) >> 0);
-
-		return result;
+	public static byte[] IntToByteArray(int number) {
+		return  ByteBuffer.allocate(4).putInt(number).array();
+	}
+	
+	/*
+	 * Transforming byte array to an integer
+	 */
+	public static int ByteArrayToInt(byte[] number){
+	     return ByteBuffer.wrap(number).getInt();
 	}
 }
