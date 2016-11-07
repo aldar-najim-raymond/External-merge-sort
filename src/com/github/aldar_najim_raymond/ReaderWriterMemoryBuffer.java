@@ -1,5 +1,4 @@
 // TODO: modify the write methods as they contain the same code
-// TODO: read data with a buffer
 
 package com.github.aldar_najim_raymond;
 
@@ -16,6 +15,8 @@ import java.util.ArrayList;
 
 public class ReaderWriterMemoryBuffer {
 
+	public static int defaultMemoryBufferSize = 4;
+
 	private OutputStream os;
 	private int memoryBufferSize;
 
@@ -23,7 +24,7 @@ public class ReaderWriterMemoryBuffer {
 	 * constructors with/without buffer size specified
 	 */
 	public ReaderWriterMemoryBuffer() {
-		this.memoryBufferSize = 4;
+		this.memoryBufferSize = ReaderWriterMemoryBuffer.defaultMemoryBufferSize;
 	}
 
 	public ReaderWriterMemoryBuffer(int bufferSize) {
@@ -35,29 +36,46 @@ public class ReaderWriterMemoryBuffer {
 	 */
 	public ReaderWriterMemoryBuffer builderSetMemoryBufferSize(int size) {
 		if (size < 1) {
-			throw new IllegalArgumentException("Memory buffer size must be larger than 0.");
+			throw new IllegalArgumentException(
+					"Memory buffer size must be larger than 0.");
 		}
 		/*
 		 * only allow multiples of 4 to make the write/read methods easier ...
 		 */
 		else if ((size % 4) != 0) {
-			throw new IllegalArgumentException("Buffer size must be multiple of 4");
+			throw new IllegalArgumentException(
+					"Buffer size must be multiple of 4");
 		}
 		this.memoryBufferSize = size;
 		return this;
 	}
 
 	/*
-	 * simple read
+	 * Read the input stream with a memory buffer
 	 */
 	public void read(String file) {
 		InputStream is;
+		byte[] readBuffer;
 		try {
 			is = new FileInputStream(new File(file));
 			DataInputStream ds = new DataInputStream(is);
+			readBuffer = new byte[this.memoryBufferSize];
+			int length = 0;
 			try {
-				while (true) {
-					System.out.println(ds.readInt());
+				/*
+				 * length = number of bytes read
+				 */
+				while ((length = ds.read(readBuffer)) != -1) {
+					/*
+					 * Transforming the byte[] into integers and printing them
+					 * out
+					 */
+					for (int i = 0; i < length; i += 4) {
+						byte[] number = new byte[4];
+						System.arraycopy(readBuffer, i, number, 0, 4);
+						System.out.println(UtilisationClass
+								.ByteArrayToInt(number));
+					}
 				}
 			} catch (EOFException e) {
 				ds.close();
@@ -78,7 +96,8 @@ public class ReaderWriterMemoryBuffer {
 			buffer = new byte[this.memoryBufferSize];
 			for (int i = 0; i < integers; i++) {
 
-				byte[] number = UtilisationClass.IntToByteArray(UtilisationClass.randomNumber());
+				byte[] number = UtilisationClass
+						.IntToByteArray(UtilisationClass.randomNumber());
 
 				System.arraycopy(number, 0, buffer, bufferCounter, 4);
 				/*
@@ -116,9 +135,11 @@ public class ReaderWriterMemoryBuffer {
 		try {
 			os = new FileOutputStream(file);
 			buffer = new byte[this.memoryBufferSize];
-			for (BigInteger i = BigInteger.valueOf(1); i.compareTo(integers) <= 0; i = i.add(BigInteger.ONE)) {
-				
-				byte[] number = UtilisationClass.IntToByteArray(UtilisationClass.randomNumber());
+			for (BigInteger i = BigInteger.valueOf(1); i.compareTo(integers) <= 0; i = i
+					.add(BigInteger.ONE)) {
+
+				byte[] number = UtilisationClass
+						.IntToByteArray(UtilisationClass.randomNumber());
 
 				System.arraycopy(number, 0, buffer, bufferCounter, 4);
 				/*
@@ -133,7 +154,7 @@ public class ReaderWriterMemoryBuffer {
 					bufferCounter = 0;
 				}
 			}
-			
+
 			/*
 			 * check if there is still data in the buffer not yet written to the
 			 * file
@@ -141,7 +162,7 @@ public class ReaderWriterMemoryBuffer {
 			if (bufferCounter != 0) {
 				os.write(buffer, 0, bufferCounter);
 			}
-			
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -157,7 +178,7 @@ public class ReaderWriterMemoryBuffer {
 			os = new FileOutputStream(file);
 			buffer = new byte[this.memoryBufferSize];
 			for (Integer i : integers) {
-				
+
 				byte[] number = UtilisationClass.IntToByteArray(i);
 
 				System.arraycopy(number, 0, buffer, bufferCounter, 4);
@@ -173,7 +194,7 @@ public class ReaderWriterMemoryBuffer {
 					bufferCounter = 0;
 				}
 			}
-			
+
 			/*
 			 * check if there is still data in the buffer not yet written to the
 			 * file
@@ -196,5 +217,5 @@ public class ReaderWriterMemoryBuffer {
 	public int getMemoryBufferSize() {
 		return this.memoryBufferSize;
 	}
-	
+
 }
