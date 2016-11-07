@@ -12,6 +12,7 @@ public class UtilisationClass {
 	/*
 	 * Use reflection to calculate the running time of a method
 	 */
+	// TODO: parameters for the constructor
 	public static long getRuntime(String methodName, Class<?> cls,
 			Class<?>[] parameterTypes, Object[] parameterValues) {
 		long before, after;
