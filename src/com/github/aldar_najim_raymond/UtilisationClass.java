@@ -14,10 +14,13 @@ public class UtilisationClass {
 	 */
 	// TODO: parameters for the constructor
 	public static long getRuntime(String methodName, Class<?> cls,
+			Class<?>[] constructorTypes, Object[] constructorValues,
 			Class<?>[] parameterTypes, Object[] parameterValues) {
 		long before, after;
 		try {
-			Object obj = cls.newInstance();
+			//Object obj = cls.newInstance();
+			Object obj = cls.getClass().getDeclaredConstructor(constructorTypes).newInstance(constructorValues);
+			System.out.println(obj.getClass());
 			Method m = cls.getDeclaredMethod(methodName, parameterTypes);
 
 			before = System.currentTimeMillis();
@@ -38,7 +41,7 @@ public class UtilisationClass {
 			e.printStackTrace();
 		} catch (InstantiationException e) {
 			e.printStackTrace();
-		}
+		} 
 		return 0;
 	}
 
