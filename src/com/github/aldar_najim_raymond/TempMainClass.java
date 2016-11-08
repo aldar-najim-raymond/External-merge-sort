@@ -17,7 +17,7 @@ public class TempMainClass {
 		 * rwmb.write("a.txt", new BigInteger("5")); rws.read("a.txt");
 		 * System.out.print('\n'); rwmb.read("a.txt");
 		 */
-
+		
 		ReaderWriterMemoryBuffer rwmb = new ReaderWriterMemoryBuffer(400);
 		long before, time;
 		before = System.currentTimeMillis();
