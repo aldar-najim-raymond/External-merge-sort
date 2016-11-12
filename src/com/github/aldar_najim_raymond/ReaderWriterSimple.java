@@ -8,25 +8,21 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-public class ReaderWriterSimple implements ReaderWriterInterface {
-
-	private String file;
-	private IOType type;
+public class ReaderWriterSimple extends AbstractReaderWriter {
 
 	private OutputStream os;
 	private InputStream is;
 	private DataInputStream ds;
 
 	public ReaderWriterSimple(String file, IOType type) {
-		this.file = file;
-		this.type = type;
+		super(file,type);
 
 		/*
 		 * Initializing read streams
 		 */
-		if (this.type == IOType.READ) {
+		if (this.getType() == IOType.READ) {
 			try {
-				is = new FileInputStream(new File(this.file));
+				is = new FileInputStream(new File(this.getFile()));
 				ds = new DataInputStream(is);
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -34,14 +30,14 @@ public class ReaderWriterSimple implements ReaderWriterInterface {
 		/*
 		 * 	Initializing write streams
 		 */
-		} else if (this.type == IOType.WRITE) {
+		} else if (this.getType() == IOType.WRITE) {
 			try {
 				os = new FileOutputStream(file);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		} else {
-			throw new UnsupportedOperationException(this.type + " not supported");
+			throw new UnsupportedOperationException(this.getType() + " not supported");
 		}
 	}
 
@@ -53,6 +49,14 @@ public class ReaderWriterSimple implements ReaderWriterInterface {
 	@Override
 	public void writeInt(int number) throws IOException {
 		os.write(UtilisationClass.IntToByteArray(number));
+	}
 
+	@Override
+	public void closeStream() throws IOException {
+		if (this.getType() == IOType.READ) {
+			ds.close();
+		} else if (this.getType() == IOType.WRITE) {
+			os.close();
+		}
 	}
 }

@@ -10,8 +10,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.math.BigInteger;
-import java.util.ArrayList;
 
 public class ReaderWriterMemoryBuffer {
 
@@ -121,87 +119,6 @@ public class ReaderWriterMemoryBuffer {
 				os.write(buffer, 0, bufferCounter);
 			}
 
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
-	/*
-	 * simple write with n-BigInteger random integers
-	 */
-	public void write(String file, BigInteger integers) {
-		byte[] buffer;
-		int bufferCounter = 0;
-		try {
-			os = new FileOutputStream(file);
-			buffer = new byte[this.memoryBufferSize];
-			for (BigInteger i = BigInteger.valueOf(1); i.compareTo(integers) <= 0; i = i
-					.add(BigInteger.ONE)) {
-
-				byte[] number = UtilisationClass
-						.IntToByteArray(UtilisationClass.randomNumber());
-
-				System.arraycopy(number, 0, buffer, bufferCounter, 4);
-				/*
-				 * increase counter by 4 as one number is 4 bytes
-				 */
-				bufferCounter += 4;
-				/*
-				 * Buffer is full -> write data to file
-				 */
-				if (bufferCounter >= this.memoryBufferSize) {
-					os.write(buffer);
-					bufferCounter = 0;
-				}
-			}
-
-			/*
-			 * check if there is still data in the buffer not yet written to the
-			 * file
-			 */
-			if (bufferCounter != 0) {
-				os.write(buffer, 0, bufferCounter);
-			}
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
-	/*
-	 * simple write with n-ArrayList integers
-	 */
-	public void write(String file, ArrayList<Integer> integers) {
-		byte[] buffer;
-		int bufferCounter = 0;
-		try {
-			os = new FileOutputStream(file);
-			buffer = new byte[this.memoryBufferSize];
-			for (Integer i : integers) {
-
-				byte[] number = UtilisationClass.IntToByteArray(i);
-
-				System.arraycopy(number, 0, buffer, bufferCounter, 4);
-				/*
-				 * increase counter by 4 as one number is 4 bytes
-				 */
-				bufferCounter += 4;
-				/*
-				 * Buffer is full -> write data to file
-				 */
-				if (bufferCounter >= this.memoryBufferSize) {
-					os.write(buffer);
-					bufferCounter = 0;
-				}
-			}
-
-			/*
-			 * check if there is still data in the buffer not yet written to the
-			 * file
-			 */
-			if (bufferCounter != 0) {
-				os.write(buffer, 0, bufferCounter);
-			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
