@@ -1,10 +1,12 @@
-package com.github.aldar_najim_raymond;
+package com.github.aldar_najim_raymond.readerWriterPackage;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
+
+import com.github.aldar_najim_raymond.UtilisationClass;
 
 public class ReaderWriterMapped extends AbstractReaderWriter {
 

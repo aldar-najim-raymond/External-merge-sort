@@ -1,4 +1,4 @@
-package com.github.aldar_najim_raymond;
+package com.github.aldar_najim_raymond.readerWriterPackage;
 
 public abstract class AbstractReaderWriter implements ReaderWriterInterface {
 	private String fileName;

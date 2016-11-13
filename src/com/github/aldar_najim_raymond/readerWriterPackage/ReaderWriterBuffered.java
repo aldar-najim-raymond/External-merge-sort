@@ -1,4 +1,4 @@
-package com.github.aldar_najim_raymond;
+package com.github.aldar_najim_raymond.readerWriterPackage;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -9,6 +9,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+
+import com.github.aldar_najim_raymond.UtilisationClass;
 
 public class ReaderWriterBuffered extends AbstractReaderWriter{
 

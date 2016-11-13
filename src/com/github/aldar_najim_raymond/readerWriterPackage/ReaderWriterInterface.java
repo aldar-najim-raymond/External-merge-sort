@@ -1,4 +1,4 @@
-package com.github.aldar_najim_raymond;
+package com.github.aldar_najim_raymond.readerWriterPackage;
 
 import java.io.IOException;
 
