@@ -1,4 +1,4 @@
-package com.github.aldar_najim_raymond.readerWriterPackage;
+package com.github.aldar_najim_raymond.readerWriter;
 
 import java.io.DataInputStream;
 import java.io.File;
