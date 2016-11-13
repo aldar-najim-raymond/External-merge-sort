@@ -1,12 +1,9 @@
-// TODO: modify the write methods as they contain the same code
-
 package com.github.aldar_najim_raymond;
 
 import java.io.DataInputStream;
 import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -82,50 +79,6 @@ public class ReaderWriterMemoryBuffer extends AbstractReaderWriter {
 		this.memoryBuffer = new byte[size];
 	}
 
-
-	/*
-	 * simple write with n-integer random integers
-	 */
-	
-	public void write(String file, int integers) {
-		byte[] buffer;
-		int bufferCounter = 0;
-		try {
-			os = new FileOutputStream(file);
-			//buffer = new byte[this.memoryBufferSize];
-			for (int i = 0; i < integers; i++) {
-
-				byte[] number = UtilisationClass.IntToByteArray(UtilisationClass.randomNumber());
-
-				//System.arraycopy(number, 0, buffer, bufferCounter, 4);
-				/*
-				 * increase counter by 4 as one number is 4 bytes
-				 */
-				bufferCounter += 4;
-				/*
-				 * Buffer is full -> write data to file
-				 */
-				/*
-				if (bufferCounter >= this.memoryBufferSize) {
-					os.write(buffer);
-					bufferCounter = 0;
-				}*/
-			}
-
-			/*
-			 * check if there is still data in the buffer not yet written to the
-			 * file
-			 */
-			/*
-			if (bufferCounter != 0) {
-				os.write(buffer, 0, bufferCounter);
-			}*/
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
 	/*
 	 * Read the input stream with a memory buffer
 	 */
@@ -158,8 +111,16 @@ public class ReaderWriterMemoryBuffer extends AbstractReaderWriter {
 
 	@Override
 	public void writeInt(int number) throws IOException {
-		// TODO Auto-generated method stub
-
+		byte[] num = UtilisationClass.IntToByteArray(number);
+		System.arraycopy(num, 0, this.memoryBuffer, this.bufferPointer, 4);
+		this.bufferPointer +=4;
+		/*
+		 * Memory buffer is full -> write to file
+		 */
+		if (this.bufferPointer >= this.memoryBuffer.length){
+			os.write(this.memoryBuffer);
+			this.bufferPointer = 0;
+		}
 	}
 
 	@Override
@@ -167,9 +128,14 @@ public class ReaderWriterMemoryBuffer extends AbstractReaderWriter {
 		if (this.getType() == IOType.READ) {
 			ds.close();
 		} else if (this.getType() == IOType.WRITE) {
-			//bos.close();
+			/*
+			 * Write remaining data to file before closing, otherwise the data in the buffer would be lost and not written to file
+			 */
+			if (this.bufferPointer != 0){
+				os.write(this.memoryBuffer, 0, this.bufferPointer);
+			}
+			os.close();
 		}
-
 	}
 
 }
