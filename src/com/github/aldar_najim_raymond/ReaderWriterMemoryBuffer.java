@@ -56,7 +56,6 @@ public class ReaderWriterMemoryBuffer extends AbstractReaderWriter {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-
 		} else {
 			throw new UnsupportedOperationException(this.getType() + " not supported");
 		}
@@ -89,11 +88,12 @@ public class ReaderWriterMemoryBuffer extends AbstractReaderWriter {
 		 */
 		if (this.bufferLength == -2) {
 			this.bufferLength = ds.read(this.memoryBuffer);
-		} 
+		}
 		/*
-		 * Read n memory bytes from stream when the pointer is larger than the buffer
+		 * Read n memory bytes from stream when the pointer is larger than the
+		 * buffer
 		 */
-		else if (this.bufferPointer >= this.memoryBuffer.length){
+		else if (this.bufferPointer >= this.memoryBuffer.length) {
 			this.bufferLength = ds.read(this.memoryBuffer);
 			this.bufferPointer = 0;
 		}
@@ -113,11 +113,11 @@ public class ReaderWriterMemoryBuffer extends AbstractReaderWriter {
 	public void writeInt(int number) throws IOException {
 		byte[] num = UtilisationClass.IntToByteArray(number);
 		System.arraycopy(num, 0, this.memoryBuffer, this.bufferPointer, 4);
-		this.bufferPointer +=4;
+		this.bufferPointer += 4;
 		/*
 		 * Memory buffer is full -> write to file
 		 */
-		if (this.bufferPointer >= this.memoryBuffer.length){
+		if (this.bufferPointer >= this.memoryBuffer.length) {
 			os.write(this.memoryBuffer);
 			this.bufferPointer = 0;
 		}
@@ -129,13 +129,13 @@ public class ReaderWriterMemoryBuffer extends AbstractReaderWriter {
 			ds.close();
 		} else if (this.getType() == IOType.WRITE) {
 			/*
-			 * Write remaining data to file before closing, otherwise the data in the buffer would be lost and not written to file
+			 * Write remaining data to file before closing, otherwise the data
+			 * in the buffer would be lost and not written to file
 			 */
-			if (this.bufferPointer != 0){
+			if (this.bufferPointer != 0) {
 				os.write(this.memoryBuffer, 0, this.bufferPointer);
 			}
 			os.close();
 		}
 	}
-
 }

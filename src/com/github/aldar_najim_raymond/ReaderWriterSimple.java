@@ -22,7 +22,7 @@ public class ReaderWriterSimple extends AbstractReaderWriter {
 		 */
 		if (this.getType() == IOType.READ) {
 			try {
-				is = new FileInputStream(new File(this.getFile()));
+				is = new FileInputStream(new File(this.getFileName()));
 				ds = new DataInputStream(is);
 			} catch (IOException e) {
 				e.printStackTrace();

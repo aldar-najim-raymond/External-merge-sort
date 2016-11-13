@@ -1,22 +1,22 @@
 package com.github.aldar_najim_raymond;
 
 public abstract class AbstractReaderWriter implements ReaderWriterInterface {
-	private String file;
+	private String fileName;
 	private IOType type;
 	
-	public AbstractReaderWriter(String file, IOType type){
-		this.file = file;
+	public AbstractReaderWriter(String fileName, IOType type){
+		this.fileName = fileName;
 		this.type = type;
 	}
 	
 	/*
 	 * Getters/Setters
 	 */
-	public String getFile() {
-		return file;
+	public String getFileName() {
+		return fileName;
 	}
-	public void setFile(String file) {
-		this.file = file;
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
 	}
 	public IOType getType() {
 		return type;

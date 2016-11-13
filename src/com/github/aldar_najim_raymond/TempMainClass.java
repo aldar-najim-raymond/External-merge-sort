@@ -6,29 +6,24 @@ public class TempMainClass {
 
 	public static void main(String[] args) {
 
-		ReaderWriterBuffered rwb = new ReaderWriterBuffered("t1.txt", IOType.WRITE);
-
+		ReaderWriterMapped rwb = new ReaderWriterMapped("t1.txt", IOType.WRITE,4*100*8*8);
 		try {
-			for (int i = 0; i < 10; i++) {
-				rwb.writeInt(i * 12);
+			for (int i = 0; i < 100; i++) {
+				rwb.writeInt(i);
 			}
 			rwb.closeStream();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-		ReaderWriterBuffered rwb2 = new ReaderWriterBuffered("t1.txt", IOType.READ);
-
+		
+		ReaderWriterMapped rwm = new ReaderWriterMapped("t1.txt", IOType.READ);
 		try {
-			for (int i = 0; i < 10; i++) {
-				System.out.println(rwb2.readInt());
+			for (int i = 0; i < 100; i++) {
+				System.out.println(rwm.readInt());
 			}
-			rwb2.closeStream();
+			rwb.closeStream();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 	}
 }
