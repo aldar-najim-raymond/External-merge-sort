@@ -19,7 +19,7 @@ public class ReaderWriterMapped extends AbstractReaderWriter {
 		this(fileName, type, 0);
 		if (type == IOType.WRITE) {
 			throw new IllegalArgumentException(
-					"Must specify how much data will be written. For one integer, the buffer size is 4 * 8 * 8 ");
+					"Must specify how much data will be written. For one integer, the buffer size is 1 * 4 * 8 * 8 ");
 		}
 	}
 

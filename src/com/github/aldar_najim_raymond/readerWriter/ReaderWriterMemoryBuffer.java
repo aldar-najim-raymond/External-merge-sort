@@ -13,7 +13,7 @@ import com.github.aldar_najim_raymond.UtilisationClass;
 
 public class ReaderWriterMemoryBuffer extends AbstractReaderWriter {
 
-	public static int defaultMemoryBufferSize = 4;
+	public static int defaultMemoryBufferSize = 8192;
 
 	private InputStream is;
 	private DataInputStream ds;

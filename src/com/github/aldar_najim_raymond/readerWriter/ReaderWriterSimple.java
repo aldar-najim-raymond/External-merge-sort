@@ -34,7 +34,7 @@ public class ReaderWriterSimple extends AbstractReaderWriter {
 		 */
 		} else if (this.getType() == IOType.WRITE) {
 			try {
-				os = new FileOutputStream(file);
+				os = new FileOutputStream(file,false);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
