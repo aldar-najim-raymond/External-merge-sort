@@ -1,3 +1,4 @@
+// TODO: implement buffer for the read and write function as done in the Memorybuffer class
 package com.github.aldar_najim_raymond.readerWriter;
 
 import java.io.File;
@@ -35,7 +36,8 @@ public class ReaderWriterMapped extends AbstractReaderWriter {
 			try {
 				this.randomAccessFile = new RandomAccessFile(file, "r");
 				this.fileChannel = randomAccessFile.getChannel();
-				this.buffer = fileChannel.map(FileChannel.MapMode.READ_ONLY, 0, fileChannel.size());
+				this.buffer = fileChannel.map(FileChannel.MapMode.READ_ONLY, 0,
+						fileChannel.size());
 				this.randomAccessFile.close();
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -48,13 +50,15 @@ public class ReaderWriterMapped extends AbstractReaderWriter {
 				this.file.delete();
 				this.randomAccessFile = new RandomAccessFile(file, "rw");
 				this.fileChannel = this.randomAccessFile.getChannel();
-				this.buffer = fileChannel.map(FileChannel.MapMode.READ_WRITE, 0, bufferSize);
+				this.buffer = fileChannel.map(FileChannel.MapMode.READ_WRITE,
+						0, bufferSize);
 				this.randomAccessFile.close();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		} else {
-			throw new UnsupportedOperationException(this.getType() + " not supported");
+			throw new UnsupportedOperationException(this.getType()
+					+ " not supported");
 		}
 	}
 
