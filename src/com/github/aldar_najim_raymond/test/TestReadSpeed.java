@@ -4,7 +4,6 @@ package com.github.aldar_najim_raymond.test;
 import java.io.EOFException;
 import java.io.IOException;
 
-import com.github.aldar_najim_raymond.UtilisationClass;
 import com.github.aldar_najim_raymond.readerWriter.IOType;
 import com.github.aldar_najim_raymond.readerWriter.ReaderWriterBuffered;
 import com.github.aldar_najim_raymond.readerWriter.ReaderWriterInterface;
@@ -39,6 +38,7 @@ public class TestReadSpeed {
 				}
 				
 				try {
+					// Read until file has reached EOF
 					while (true) {
 						rws.readInt();
 					}
