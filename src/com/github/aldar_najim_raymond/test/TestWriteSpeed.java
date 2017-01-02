@@ -56,7 +56,7 @@ public class TestWriteSpeed {
 				/*
 				 * Iterating n BigInteger times
 				 */
-				for (BigInteger i = BigInteger.ONE; i.compareTo(integers) < 0; i = i
+				for (BigInteger i = BigInteger.ZERO; i.compareTo(integers) < 0; i = i
 						.add(BigInteger.ONE)) {
 					rws.writeInt(UtilisationClass.randomNumber());
 				}
@@ -89,7 +89,7 @@ public class TestWriteSpeed {
 				/*
 				 * Iterating n BigInteger times
 				 */
-				for (BigInteger i = BigInteger.ONE; i.compareTo(integers) < 0; i = i
+				for (BigInteger i = BigInteger.ZERO; i.compareTo(integers) < 0; i = i
 						.add(BigInteger.ONE)) {
 					rws.writeInt(UtilisationClass.randomNumber());
 				}
@@ -121,7 +121,7 @@ public class TestWriteSpeed {
 				/*
 				 * Iterating n BigInteger times
 				 */
-				for (BigInteger i = BigInteger.ONE; i.compareTo(integers) < 0; i = i
+				for (BigInteger i = BigInteger.ZERO; i.compareTo(integers) < 0; i = i
 						.add(BigInteger.ONE)) {
 					rws.writeInt(UtilisationClass.randomNumber());
 				}

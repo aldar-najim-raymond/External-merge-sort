@@ -40,9 +40,10 @@ public class TestReadSpeed {
 				try {
 					// Read until file has reached EOF
 					while (true) {
-						//System.out.println(i + " " + rws.readInt());
-						rws.readInt();
+						System.out.println(i + " " + rws.readInt());
+						//rws.readInt();
 						i++;
+						
 					}
 				} catch (EOFException eof) {
 					System.out.println("iterated " + i + " times");
