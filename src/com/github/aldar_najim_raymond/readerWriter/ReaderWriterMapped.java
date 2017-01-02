@@ -69,6 +69,7 @@ public class ReaderWriterMapped extends AbstractReaderWriter {
 	public int readInt() throws IOException {
 		// Check if EOF has been reached
 		if (this.readBufferPosition >= this.readBufferLimit) {
+			System.out.println("position : " + this.readBufferPosition + ", limit: " + this.readBufferLimit);
 			throw new EOFException("Mapped ReaderWriter has reached EOF.");
 		} else {
 			this.readBufferPosition++;

@@ -54,7 +54,6 @@ public class SingleFileMerge {
 		} catch (IOException e) {
 
 		}
-
 		return sortedFiles;
 	}
 

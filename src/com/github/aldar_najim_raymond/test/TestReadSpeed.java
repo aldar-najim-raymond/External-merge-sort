@@ -36,13 +36,16 @@ public class TestReadSpeed {
 				} else {
 					rws = new ReaderWriterMapped(fileName, IOType.READ);
 				}
-				
+				double i = 0;
 				try {
 					// Read until file has reached EOF
 					while (true) {
+						//System.out.println(i + " " + rws.readInt());
 						rws.readInt();
+						i++;
 					}
 				} catch (EOFException eof) {
+					System.out.println("iterated " + i + " times");
 					rws.closeStream();
 				}
 			}

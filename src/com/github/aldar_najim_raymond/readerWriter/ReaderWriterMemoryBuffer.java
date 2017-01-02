@@ -95,7 +95,8 @@ public class ReaderWriterMemoryBuffer extends AbstractReaderWriter {
 		 * Read n memory bytes from stream when the pointer is larger than the
 		 * buffer
 		 */
-		else if (this.bufferPointer >= this.memoryBuffer.length) {
+		//else if (this.bufferPointer >= this.memoryBuffer.length) {
+		else if (this.bufferPointer >= this.bufferLength) {
 			this.bufferLength = ds.read(this.memoryBuffer);
 			this.bufferPointer = 0;
 		}
