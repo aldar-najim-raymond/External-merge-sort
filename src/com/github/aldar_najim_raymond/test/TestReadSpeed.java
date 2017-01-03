@@ -17,41 +17,39 @@ public class TestReadSpeed {
 		SIMPLE, BUFFERED, MEMORYBUFFER, MAPPED
 	}
 
-	public static long testReaderWriter_Read(String fileName, int runs, 
-			Implementation implementation, int bufferSize) {
+	public static long testReaderWriter_Read(String fileName, Implementation implementation, int bufferSize) {
 
-		long before = System.currentTimeMillis();
+		long before = System.nanoTime();
 		ReaderWriterInterface rws;
 
 		try {
-			for (int currentRun = 0; currentRun < runs; currentRun++) {
-				if (implementation == Implementation.SIMPLE) {
-					rws = new ReaderWriterSimple(fileName, IOType.READ);
+			if (implementation == Implementation.SIMPLE) {
+				rws = new ReaderWriterSimple(fileName, IOType.READ);
 
-				} else if (implementation == Implementation.BUFFERED) {
-					rws = new ReaderWriterBuffered(fileName, IOType.READ);
+			} else if (implementation == Implementation.BUFFERED) {
+				rws = new ReaderWriterBuffered(fileName, IOType.READ);
 
-				} else if (implementation == Implementation.MEMORYBUFFER) {
-					rws = new ReaderWriterMemoryBuffer(fileName, IOType.READ, bufferSize);
+			} else if (implementation == Implementation.MEMORYBUFFER) {
+				rws = new ReaderWriterMemoryBuffer(fileName, IOType.READ, bufferSize);
 
-				} else if (implementation == Implementation.MAPPED) {
-					rws = new ReaderWriterMapped(fileName, IOType.READ, bufferSize);
-					
-				} else {
-					continue;
-				}
-				try {
-					// Read until file has reached EOF
-					while (true) {
-						rws.readInt();
-					}
-				} catch (EOFException eof) {
-					rws.closeStream();
-				}
+			} else if (implementation == Implementation.MAPPED) {
+				rws = new ReaderWriterMapped(fileName, IOType.READ);
+
+			} else {
+				return 0;
 			}
+			try {
+				// Read until file has reached EOF
+				while (true) {
+					rws.readInt();
+				}
+			} catch (EOFException eof) {
+				rws.closeStream();
+			}
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return ((System.currentTimeMillis() - before) / runs);
+		return (System.nanoTime() - before);
 	}
 }

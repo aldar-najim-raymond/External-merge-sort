@@ -19,23 +19,20 @@ public class TestMemoryBuffer_BufferSizes {
 		String fileType = "memoryBuffer";
 
 		// Testing write for each buffer size with a 100mb large file
-		System.out.println("Testing different bufferSizes for writing");
+		System.out.println("Testing different bufferSizes for writing and reading 100mb");
+		System.out.println("Buffer Size, Write, Read");
 		for (Integer i : bufferSize) {
 			String fileName = fileType + "_" + i.toString() + ".txt";
-			long timeTaken = TestWriteSpeed.testReaderWriterMemoryBuffer_Write(fileName, i, 2500000,
-					TestReadWriteSuite.runs);
-			System.out.println(i.toString() + " " + timeTaken);
+			long timeTakenWrite = 0;
+			long timeTakenRead = 0;
+			for (int runs = 0; runs < TestReadWriteSuite.runs; runs++) {
+				timeTakenWrite += TestWriteSpeed.testReaderWriterMemoryBuffer_Write(fileName, i, 2500000, 1);
+				timeTakenRead += TestReadSpeed.testReaderWriter_Read(fileName, Implementation.MEMORYBUFFER, i);
+			}
+			timeTakenWrite /= TestReadWriteSuite.runs;
+			timeTakenRead /= TestReadWriteSuite.runs;
+			System.out.println(i.toString() + " " + timeTakenWrite + " " + timeTakenRead);
+			TestReadWriteSuite.deleteFile(fileName);
 		}
-
-		// Testing read for each buffer size with a 100mb large file
-		System.out.println("Testing different bufferSizes for reading");
-		for (Integer i : bufferSize) {
-			String fileName = fileType + "_" + i.toString() + ".txt";
-			long timeTaken = TestReadSpeed.testReaderWriter_Read(fileName, TestReadWriteSuite.runs,
-					Implementation.MEMORYBUFFER, i);
-			System.out.println(i.toString() + " " + timeTaken);
-		}
-
 	}
-
 }

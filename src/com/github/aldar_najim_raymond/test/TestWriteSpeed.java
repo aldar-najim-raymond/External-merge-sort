@@ -25,7 +25,7 @@ public class TestWriteSpeed {
 	public static long testReaderWriterSimple_Write(String fileName,
 			BigInteger integers, int runs) {
 
-		long before = System.currentTimeMillis();
+		long before = System.nanoTime();
 		ReaderWriterSimple rws;
 
 		try {
@@ -43,7 +43,7 @@ public class TestWriteSpeed {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return ((System.currentTimeMillis() - before) / runs);
+		return ((System.nanoTime() - before) / runs);
 	}
 
 	/*
@@ -58,7 +58,7 @@ public class TestWriteSpeed {
 	public static long testReaderWriterBuffered_Write(String fileName,
 			BigInteger integers, int runs) {
 
-		long before = System.currentTimeMillis();
+		long before = System.nanoTime();
 		ReaderWriterBuffered rws;
 		try {
 			for (int currentRun = 0; currentRun < runs; currentRun++) {
@@ -75,7 +75,7 @@ public class TestWriteSpeed {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return ((System.currentTimeMillis() - before) / runs);
+		return ((System.nanoTime() - before) / runs);
 	}
 
 	/*
@@ -90,7 +90,7 @@ public class TestWriteSpeed {
 	public static long testReaderWriterMemoryBuffer_Write(String fileName,
 			int bufferSize, BigInteger integers, int runs) {
 
-		long before = System.currentTimeMillis();
+		long before = System.nanoTime();
 		ReaderWriterMemoryBuffer rws;
 		try {
 			for (int currentRun = 0; currentRun < runs; currentRun++) {
@@ -108,7 +108,7 @@ public class TestWriteSpeed {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return ((System.currentTimeMillis() - before) / runs);
+		return ((System.nanoTime() - before) / runs);
 	}
 
 	/*
@@ -123,7 +123,7 @@ public class TestWriteSpeed {
 	public static long testReaderWriterMapped_Write(String fileName,
 			int bufferSize, BigInteger integers, int runs) {
 
-		long before = System.currentTimeMillis();
+		long before = System.nanoTime();
 		ReaderWriterMapped rws;
 		try {
 			for (int currentRun = 0; currentRun < runs; currentRun++) {
@@ -140,6 +140,6 @@ public class TestWriteSpeed {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return ((System.currentTimeMillis() - before) / runs);
+		return ((System.nanoTime() - before) / runs);
 	}
 }
