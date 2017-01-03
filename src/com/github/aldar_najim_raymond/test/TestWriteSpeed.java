@@ -18,6 +18,12 @@ public class TestWriteSpeed {
 	 */
 	public static long testReaderWriterSimple_Write(String fileName,
 			int integers, int runs) {
+		return (testReaderWriterSimple_Write(fileName,
+				BigInteger.valueOf(integers), runs));
+	}
+	
+	public static long testReaderWriterSimple_Write(String fileName,
+			BigInteger integers, int runs) {
 
 		long before = System.currentTimeMillis();
 		ReaderWriterSimple rws;
@@ -25,7 +31,11 @@ public class TestWriteSpeed {
 		try {
 			for (int currentRun = 0; currentRun < runs; currentRun++) {
 				rws = new ReaderWriterSimple(fileName, IOType.WRITE);
-				for (int i = 0; i < integers; i++) {
+				/*
+				 * Iterating n BigInteger times
+				 */
+				for (BigInteger i = BigInteger.ZERO; i.compareTo(integers) < 0; i = i
+						.add(BigInteger.ONE)) {
 					rws.writeInt(UtilisationClass.randomNumber());
 				}
 				rws.closeStream();
@@ -132,5 +142,4 @@ public class TestWriteSpeed {
 		}
 		return ((System.currentTimeMillis() - before) / runs);
 	}
-
 }

@@ -1,4 +1,3 @@
-// TODO: implement buffer for the read and write function as done in the Memorybuffer class
 package com.github.aldar_najim_raymond.readerWriter;
 
 import java.io.EOFException;
