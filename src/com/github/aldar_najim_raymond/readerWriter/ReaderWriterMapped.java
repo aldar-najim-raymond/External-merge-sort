@@ -36,7 +36,6 @@ public class ReaderWriterMapped extends AbstractReaderWriter {
 		 * Initializing read buffer
 		 */
 		if (this.getType() == IOType.READ) {
-			this.readBufferPosition = 0;
 			try {
 				this.randomAccessFile = new RandomAccessFile(file, "r");
 				this.fileChannel = randomAccessFile.getChannel();
@@ -45,8 +44,9 @@ public class ReaderWriterMapped extends AbstractReaderWriter {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			// 8*8*4 because we only deal with integers
-			this.readBufferLimit = this.buffer.limit() / (8 * 8 * 4);
+			this.readBufferPosition = 0;
+			// / 4 because we only deal with integers
+			this.readBufferLimit = this.buffer.limit() / 4;
 			/*
 			 * Initializing write buffer
 			 */
@@ -69,7 +69,6 @@ public class ReaderWriterMapped extends AbstractReaderWriter {
 	public int readInt() throws IOException {
 		// Check if EOF has been reached
 		if (this.readBufferPosition >= this.readBufferLimit) {
-			System.out.println("position : " + this.readBufferPosition + ", limit: " + this.readBufferLimit);
 			throw new EOFException("Mapped ReaderWriter has reached EOF.");
 		} else {
 			this.readBufferPosition++;
