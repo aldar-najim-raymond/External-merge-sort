@@ -18,7 +18,7 @@ public abstract class TestReadWriteSuite {
 		}
 	};
 	
-	public static int runs = 5;
+	public static int runs = 10;
 	
 	public static void deleteFile(String fileName){
 		File file = new File(fileName);
