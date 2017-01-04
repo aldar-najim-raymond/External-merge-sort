@@ -7,8 +7,6 @@ import java.io.RandomAccessFile;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
 
-import com.github.aldar_najim_raymond.UtilisationClass;
-
 public class ReaderWriterMapped extends AbstractReaderWriter {
 
 	private File file;
