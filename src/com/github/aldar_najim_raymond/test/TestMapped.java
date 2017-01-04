@@ -9,6 +9,8 @@ public class TestMapped {
 	public static void main(String[] args) {
 		String fileType = "mapped";
 
+		int bufferSize = 65536;
+		
 		/*
 		 * Testing the write and read speed of simple writer
 		 */
@@ -19,8 +21,8 @@ public class TestMapped {
 			long timeTakenWrite = 0;
 			long timeTakenRead = 0;
 			for (int runs = 0; runs < TestReadWriteSuite.runs; runs++) {
-				timeTakenWrite += TestWriteSpeed.testReaderWriterMapped_Write(fileName, 8192, i, 1);
-				timeTakenRead += TestReadSpeed.testReaderWriter_Read(fileName, Implementation.MAPPED, 32768);
+				timeTakenWrite += TestWriteSpeed.testReaderWriterMapped_Write(fileName, bufferSize, i, 1);
+				timeTakenRead += TestReadSpeed.testReaderWriter_Read(fileName, Implementation.MAPPED, bufferSize);
 			}
 			timeTakenWrite /= TestReadWriteSuite.runs;
 			timeTakenRead /= TestReadWriteSuite.runs;
