@@ -33,7 +33,7 @@ public class TestReadSpeed {
 				rws = new ReaderWriterMemoryBuffer(fileName, IOType.READ, bufferSize);
 
 			} else if (implementation == Implementation.MAPPED) {
-				rws = new ReaderWriterMapped(fileName, IOType.READ);
+				rws = new ReaderWriterMapped(fileName, IOType.READ, bufferSize);
 
 			} else {
 				return 0;
