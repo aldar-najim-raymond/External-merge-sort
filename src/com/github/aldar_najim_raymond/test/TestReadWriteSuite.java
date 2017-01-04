@@ -5,9 +5,6 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 
 public abstract class TestReadWriteSuite {
-
-	// TODO: https://docs.oracle.com/javase/7/docs/api/java/nio/channels/FileChannel.html#map(java.nio.channels.FileChannel.MapMode,%20long,%20long)
-	// mapping!!
 	
 	public static ArrayList<BigInteger> testValues = new ArrayList<BigInteger>() {
 		private static final long serialVersionUID = 1L;

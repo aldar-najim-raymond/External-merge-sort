@@ -19,9 +19,8 @@ public class TestMapped {
 			long timeTakenWrite = 0;
 			long timeTakenRead = 0;
 			for (int runs = 0; runs < TestReadWriteSuite.runs; runs++) {
-				timeTakenWrite += TestWriteSpeed.testReaderWriterMapped_Write(fileName, i.intValue() * (4 * 8 * 8), i,
-						1);
-				timeTakenRead += TestReadSpeed.testReaderWriter_Read(fileName, Implementation.MAPPED, 0);
+				timeTakenWrite += TestWriteSpeed.testReaderWriterMapped_Write(fileName, 8192, i, 1);
+				timeTakenRead += TestReadSpeed.testReaderWriter_Read(fileName, Implementation.MAPPED, 32768);
 			}
 			timeTakenWrite /= TestReadWriteSuite.runs;
 			timeTakenRead /= TestReadWriteSuite.runs;
