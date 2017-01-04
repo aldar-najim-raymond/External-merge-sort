@@ -6,11 +6,15 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import com.github.aldar_najim_raymond.readerWriter.IOType;
-import com.github.aldar_najim_raymond.readerWriter.ReaderWriterMemoryBuffer;
+import com.github.aldar_najim_raymond.readerWriter.ReaderWriterMapped;
 
 public class SingleFileMerge {
 	/*
 	 * Merging large file n into m sorted files
+	 * Memory is split into 3 parts:
+	 * - Input buffer
+	 * - Output buffer
+	 * - Integer Array which holds the read data
 	 */
 	public static ArrayList<String> mergeFilePartly(String fileName, int memory) {
 		/*
@@ -18,15 +22,17 @@ public class SingleFileMerge {
 		 */
 		ArrayList<String> sortedFiles = new ArrayList<String>();
 
-		ReaderWriterMemoryBuffer reader = new ReaderWriterMemoryBuffer(fileName, IOType.READ, memory / 3);
+		ReaderWriterMapped reader = new ReaderWriterMapped(fileName, IOType.READ, memory / 3);
 		int splitNumber = 1;
 
 		int numbers[] = new int[memory / 12];
 		int counter = 0;
 		try {
 			while (true) {
+				// fill the buffer
 				numbers[counter] = reader.readInt();
 				counter++;
+				// buffer is full
 				if (counter == numbers.length - 1) {
 					counter = 0;
 					sortAndWriteToFile(fileName + "." + splitNumber + ".sorted", numbers, memory / 3);
@@ -58,7 +64,7 @@ public class SingleFileMerge {
 	}
 
 	private static void sortAndWriteToFile(String fileName, int[] numbers, int memory) throws IOException {
-		ReaderWriterMemoryBuffer writer = new ReaderWriterMemoryBuffer(fileName, IOType.WRITE, memory);
+		ReaderWriterMapped writer = new ReaderWriterMapped(fileName, IOType.WRITE, memory);
 		Arrays.sort(numbers);
 		try {
 			for (int i = 0; i < numbers.length; i++) {
