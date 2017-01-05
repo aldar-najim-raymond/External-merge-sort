@@ -13,13 +13,20 @@ public class InputStream {
 	private int currentInt;
 	private boolean eof;
 	
+	private String fileName;
+	
 	public InputStream(int bufferSize){
 		this.bufferSize = bufferSize;
 	}
 	
 	public void openStream(String fileName){
+		this.fileName = fileName;
 		rwm = new ReaderWriterMapped(fileName, IOType.READ, this.bufferSize);
 		this.eof = false;
+	}
+	
+	public String getFileName(){
+		return this.fileName;
 	}
 	
 	public int getCurrentInt(){

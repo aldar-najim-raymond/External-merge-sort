@@ -35,7 +35,7 @@ public class SingleFileMerge {
 				numbers[counter] = reader.readInt();
 				counter++;
 				// buffer is full
-				if (counter == numbers.length - 1) {
+				if (counter >= numbers.length - 1) {
 					counter = 0;
 					sortAndWriteToFile(fileName + "." + splitNumber + ".sorted", numbers, memory / 3);
 					sortedFiles.add(fileName + "." + splitNumber + ".sorted");

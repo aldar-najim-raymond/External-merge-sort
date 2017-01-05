@@ -13,6 +13,8 @@ import java.util.Iterator;
 import java.util.PriorityQueue;
 
 import com.github.aldar_najim_raymond.merge.FileCreator;
+import com.github.aldar_najim_raymond.merge.InputStream;
+import com.github.aldar_najim_raymond.merge.MultiWayMerge;
 import com.github.aldar_najim_raymond.merge.SingleFileMerge;
 import com.github.aldar_najim_raymond.readerWriter.IOType;
 import com.github.aldar_najim_raymond.readerWriter.ReaderWriterBuffered;
@@ -22,22 +24,43 @@ import com.github.aldar_najim_raymond.test.TestWriteSpeed;
 
 public class TempMainClass {
 	
+	
+
+	/*
 	static class PQsort implements Comparator<Integer> {
 		 
 		public int compare(Integer one, Integer two) {
 			return two - one;
-			/*
-			if (one < two) {
-				return -1;
-			} else if (one > two) {
-				return 1;
-			} else {
-				return 0;
-			}*/
+
 		}
-	}
+	}*/
 	
 	public static void main(String[] args) throws Exception {
+		
+		BigInteger integers = new BigInteger("100");
+		FileCreator.createRandomFile("1.txt", integers, 65536);
+
+		ArrayList<String> files = SingleFileMerge.mergeFilePartly("1.txt", 36);
+		
+		System.out.println("start merging");
+		
+		MultiWayMerge.doMultiWayMerge(65536, files);
+		
+		/*
+		BigInteger integers = new BigInteger("250000");
+		
+		FileCreator.createRandomFile("test.txt", integers, 65536);
+		
+		InputStream is = new InputStream(65536);
+		is.openStream("test.txt");
+		
+		while(!is.isEOF()){
+			is.getNextInt();
+			System.out.println(is.getCurrentInt());
+		}
+		is.closeStream();
+		*/
+		/*
 		int[] ia = { 1, 10, 5, 3, 4, 7, 6, 9, 8 };
 		PriorityQueue<Integer> pq1 = new PriorityQueue<Integer>();
  
@@ -74,5 +97,6 @@ public class TempMainClass {
 		System.out.println("size: " + pq2.size());
  
 		System.out.print("pq2: " + pq2);
+		*/
 	}
 }
