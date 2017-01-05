@@ -31,7 +31,24 @@ public class MultiWayMerge {
 	public static void startMultiWayMerge(int max_memory, int d_max_streams, String initialFileName) {
 
 		int singleMemory = max_memory - (max_memory % 12);
+		if (max_memory < 12) {
+			System.out.println("Need at least 12 bytes for the initial sorting phase");
+			max_memory = 12;
+		}
 		List<String> files = SingleFileMerge.mergeFilePartly(initialFileName, singleMemory);
+		System.out.println("1. stage mem: " + singleMemory);
+
+		// check if max_memory is okay with d_max_streams, i.e. 20 memory with
+		// 30 streams
+		if ((long) max_memory / (long) d_max_streams < 4) {
+			int new_d_streams = 0;
+			while ((new_d_streams) * 4 < max_memory) {
+				new_d_streams++;
+			}
+			System.out.println(
+					"Need at least 4 bytes for each stream, changed " + d_max_streams + " streams to " + new_d_streams);
+			d_max_streams = new_d_streams;
+		}
 
 		// do the multi merge until there is only one file left
 		while (true) {
@@ -39,19 +56,21 @@ public class MultiWayMerge {
 			List<String> tmpFiles = files.subList(0, Math.min(d_max_streams, files.size()));
 
 			System.out.println("files :" + files.size() + ", tmpFiles: " + tmpFiles.size());
-			
+
 			String merged = tmpFiles.get(0) + ".merged";
-			
-			int mergeMemory = max_memory - max_memory%(tmpFiles.size()+1)*4;
+
+			int mergeMemory = max_memory - max_memory % ((tmpFiles.size() + 1) * 4);
 			doMultiWayMerge(mergeMemory, tmpFiles, merged);
 
+			System.out.println("merge mem: " + mergeMemory);
+
 			// delete files which have been merged to larger file
-			for (int i = 0; i < Math.min(d_max_streams, files.size()); i++){
+			for (int i = 0; i < Math.min(d_max_streams, files.size()); i++) {
 				TestReadWriteSuite.deleteFile(files.get(i));
 			}
 			// delete reference to merged miles
 			files = files.subList(Math.min(d_max_streams, files.size()), files.size());
-			
+
 			// add reference to larger merged file
 			files.add(merged);
 			if (files.size() < 2) {
@@ -60,10 +79,9 @@ public class MultiWayMerge {
 		}
 		System.out.println("all sorted to " + files.get(0));
 		System.out.println(SingleFileMerge.isFileSorted(files.get(0), 65536));
-
 	}
 
-	public static void doMultiWayMerge(int memoryBuffer, List<String> fileNames, String outputName) {
+	private static void doMultiWayMerge(int memoryBuffer, List<String> fileNames, String outputName) {
 
 		// limit input memory to 65536 and give the rest to the writer
 		int inputStreamMemory = memoryBuffer / (fileNames.size() + 1);
