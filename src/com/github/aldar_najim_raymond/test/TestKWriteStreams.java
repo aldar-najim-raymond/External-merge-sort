@@ -30,7 +30,7 @@ public class TestKWriteStreams {
 			System.out.println(e);
 		} finally {
 			try {
-				for (int i = 0; i < streams.size()-1; i++) {
+				for (int i = 0; i < streams.size(); i++) {
 					streams.get(i).closeStream();
 					TestReadWriteSuite.deleteFile(i + ".txt");
 				}
