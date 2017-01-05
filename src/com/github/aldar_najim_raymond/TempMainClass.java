@@ -37,15 +37,20 @@ public class TempMainClass {
 	
 	public static void main(String[] args) throws Exception {
 		
-		BigInteger integers = new BigInteger("100");
+		BigInteger integers = new BigInteger("100000");
 		FileCreator.createRandomFile("1.txt", integers, 65536);
 
-		ArrayList<String> files = SingleFileMerge.mergeFilePartly("1.txt", 36);
+		MultiWayMerge.startMultiWayMerge(10000, 10, "1.txt");
 		
-		System.out.println("start merging");
+		/*
+		ArrayList<String> files = SingleFileMerge.mergeFilePartly("1.txt", 36000);
 		
-		MultiWayMerge.doMultiWayMerge(65536, files);
+		System.out.println("start merging of " + files.size() + " length");
 		
+		MultiWayMerge.doMultiWayMerge(65536, files, "merged.txt");
+		
+		System.out.println(SingleFileMerge.isFileSorted("merged.txt", 65536));
+		*/
 		/*
 		BigInteger integers = new BigInteger("250000");
 		
