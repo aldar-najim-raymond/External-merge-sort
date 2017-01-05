@@ -27,10 +27,13 @@ public class TempMainClass {
 	
 	public static void main(String[] args) throws Exception {
 		
-		BigInteger integers = new BigInteger("100");
+		//System.out.println(SingleFileMerge.isFileSorted("1.txt.1.sorted", 65536));
+		
+		
+		BigInteger integers = new BigInteger("250");
 		FileCreator.createRandomFile("1.txt", integers, 65536);
 
-		MultiWayMerge.startMultiWayMerge(12, 3, "1.txt");
+		MultiWayMerge.startMultiWayMerge(100, 1, "1.txt");
 		
 	}
 }
