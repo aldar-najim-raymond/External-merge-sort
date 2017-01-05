@@ -12,7 +12,7 @@ public class TestMemoryBuffered {
 
 		// We take this value from running the tests at
 		// TestMemoryBuffer_BufferSizes
-		int bufferSize = 4096;
+		int bufferSize = 45056;
 
 		/*
 		 * Testing the write speed of simple writer

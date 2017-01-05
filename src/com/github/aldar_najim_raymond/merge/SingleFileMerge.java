@@ -10,16 +10,18 @@ import com.github.aldar_najim_raymond.readerWriter.ReaderWriterMapped;
 
 public class SingleFileMerge {
 	/*
-	 * Merging large file n into m sorted files
-	 * Memory is split into 3 parts:
-	 * - Input buffer
-	 * - Output buffer
-	 * - Integer Array which holds the read data
+	 * Merging large file n into m sorted files Memory is split into 3 parts: -
+	 * Input buffer - Output buffer - Integer Array which holds the read data
 	 */
 	public static ArrayList<String> mergeFilePartly(String fileName, int memory) {
 		/*
 		 * contains names of m sorted files
 		 */
+		
+		if (memory % 12 != 0 || memory < 0){
+			throw new IllegalArgumentException("Buffer size must be non negative multiple of 12");
+		}
+		
 		ArrayList<String> sortedFiles = new ArrayList<String>();
 
 		ReaderWriterMapped reader = new ReaderWriterMapped(fileName, IOType.READ, memory / 3);
@@ -72,6 +74,29 @@ public class SingleFileMerge {
 			}
 		} finally {
 			writer.closeStream();
+		}
+	}
+
+	// Check if the integers in the file are being sorten
+	public static boolean isFileSorted(String fileName, int memory) {
+		ReaderWriterMapped reader = new ReaderWriterMapped(fileName, IOType.READ, memory);
+
+		try {
+			int prev = reader.readInt();
+			int curr;
+			// read until EOF
+			while (true) {
+				curr = reader.readInt();
+				if (prev > curr) {
+					return false;
+				}
+				prev = curr;
+			}
+		} catch (EOFException e) {
+			return true;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
 		}
 	}
 }

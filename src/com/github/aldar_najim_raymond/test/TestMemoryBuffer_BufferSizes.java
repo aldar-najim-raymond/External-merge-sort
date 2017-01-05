@@ -12,14 +12,23 @@ public class TestMemoryBuffer_BufferSizes {
 
 		// Different buffer sizes to test
 		ArrayList<Integer> bufferSize = new ArrayList<>();
+		
 		for (int i = 1024; i < 16384; i += 1024) {
 			bufferSize.add(i);
 		}
 		for (int i = 16384; i <= 65536; i += 4096) {
 			bufferSize.add(i);
 		}
+		bufferSize.add(1000000); // 1mb
+		bufferSize.add(10000000); // 10mb
+		bufferSize.add(20000000); // 20mb
+		bufferSize.add(30000000); // 30mb
+		bufferSize.add(40000000); // 40mb
+		bufferSize.add(50000000); // 50mb
+		bufferSize.add(100000000); // 100mb
+		
 
-		int integers = 2500000; // 100mb
+		int integers = 25000000; // 100mb
 		
 		String fileType = "memoryBuffer";
 

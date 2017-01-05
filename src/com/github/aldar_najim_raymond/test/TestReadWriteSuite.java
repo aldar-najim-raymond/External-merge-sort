@@ -15,10 +15,11 @@ public abstract class TestReadWriteSuite {
 			add(new BigInteger("25000"));
 			add(new BigInteger("250000"));
 			add(new BigInteger("2500000"));
+			add(new BigInteger("25000000"));
 		}
 	};
 	
-	public static int runs = 10;
+	public static int runs = 3;
 	
 	public static void deleteFile(String fileName){
 		File file = new File(fileName);

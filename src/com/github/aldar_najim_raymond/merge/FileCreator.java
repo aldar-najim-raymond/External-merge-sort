@@ -12,7 +12,7 @@ public class FileCreator {
 	/*
 	 * Create an arbitrary large file with random integer values
 	 */
-	public void createRandomFile(String fileName, BigInteger integers, int memory) {
+	public static void createRandomFile(String fileName, BigInteger integers, int memory) {
 		ReaderWriterMapped writer = new ReaderWriterMapped(fileName, IOType.WRITE, memory);
 
 		try {
