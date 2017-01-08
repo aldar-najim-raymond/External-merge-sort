@@ -2,7 +2,6 @@ package com.github.aldar_najim_raymond.merge;
 
 import java.io.IOException;
 import java.util.Comparator;
-import java.util.Iterator;
 import java.util.List;
 import java.util.PriorityQueue;
 
@@ -32,7 +31,6 @@ public class MultiWayMerge {
 
 		int singleMemory = max_memory - (max_memory % 12);
 		if (max_memory < 12) {
-			//System.out.println("Need at least 12 bytes for the initial sorting phase");
 			max_memory = 12;
 		}
 		List<String> files = SingleFileMerge.mergeFilePartly(initialFileName, singleMemory);
@@ -49,8 +47,6 @@ public class MultiWayMerge {
 			while ((new_d_streams) * 4 < max_memory) {
 				new_d_streams++;
 			}
-			//System.out.println(
-			//		"Need at least 4 bytes for each stream, changed " + d_max_streams + " streams to " + new_d_streams);
 			d_max_streams = new_d_streams;
 		}
 
@@ -59,8 +55,6 @@ public class MultiWayMerge {
 		while (true) {
 			// take maximal d files
 			List<String> tmpFiles = files.subList(0, Math.min(d_max_streams, files.size()));
-
-			//System.out.println("files :" + files.size() + ", tmpFiles: " + tmpFiles.size());
 
 			//String merged = tmpFiles.get(0) + ".merged";
 			String merged = initialFileName + "." + fileCounter + ".merged";
@@ -92,16 +86,15 @@ public class MultiWayMerge {
 				break;
 			}
 		}
-		//System.out.println("all sorted to " + files.get(0));
-		//System.out.println(SingleFileMerge.isFileSorted(files.get(0), 65536));
+		System.out.println("all sorted to " + files.get(0));
 	}
 
 	private static void doMultiWayMerge(int memoryBuffer, List<String> fileNames, String outputName) {
 
-		// limit input memory to 65536 and give the rest to the writer
+		// limit input memory to 32768 and give the rest to the writer
 		int inputStreamMemory = memoryBuffer / (fileNames.size() + 1);
-		if (inputStreamMemory > 65536) {
-			inputStreamMemory = 65536;
+		if (inputStreamMemory > 32768) {
+			inputStreamMemory = 32768;
 		}
 		int outputStreamMemory = memoryBuffer - (inputStreamMemory * fileNames.size());
 

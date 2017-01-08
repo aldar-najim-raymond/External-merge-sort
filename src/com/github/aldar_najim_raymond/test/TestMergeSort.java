@@ -28,7 +28,7 @@ public class TestMergeSort {
 		//memorySizes.add(100);
 		//memorySizes.add(1000);
 		//memorySizes.add(10000);
-		memorySizes.add(393216); // 5*k + 65536
+		memorySizes.add(393216); // 11*32768 + 32768
 		//memorySizes.add(100000);
 		//memorySizes.add(1000000);
 		//memorySizes.add(10000000);
@@ -37,6 +37,7 @@ public class TestMergeSort {
 		//d_streams.add(2);
 		//d_streams.add(5);
 		//d_streams.add(10);
+		//d_streams.add(11);
 		//d_streams.add(15);
 		//d_streams.add(20);
 		d_streams.add(30);
